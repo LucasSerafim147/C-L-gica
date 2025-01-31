@@ -1,0 +1,42 @@
+
+
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Insira sua nota: "); // mensagem para o usuário
+
+    String? entrada = (Console.ReadLine());
+
+    if (!double.TryParse(entrada, CultureInfo.InvariantCulture, out double nota)) // conversão de dados e verifação do tipo da entrada do usuario
+        throw new Exception("Entrada inválida! Insira valores numérico!");
+    validarNota();
+
+
+
+    void validarNota() // método para verificar se a nota está entre 0 e 10
+    {
+        if (nota < 0 || nota > 10)
+            throw new Exception("Entrada inválida! Insira apenas valores entre 0 e 10! ");
+    }
+    //condicionais para o resultado dependendo da nota 
+    if (nota >= 7)
+    {
+        Console.WriteLine("Aprovado(a)");
+
+    }
+    else if (nota >= 5 && nota <= 6.9)
+    {
+        Console.WriteLine("Recuperação");
+    }
+    else
+    {
+        Console.WriteLine("Reprovado");
+
+    }
+}
+catch (Exception Ex)
+{
+    Console.WriteLine(Ex.Message);
+
+}
