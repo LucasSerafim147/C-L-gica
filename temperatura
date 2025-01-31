@@ -1,0 +1,74 @@
+//Crie um programa que leia uma temperatura e classifique-a da seguinte forma:
+
+//Menor que 0°C: "Congelante".
+//Entre 0°C e 15°C: "Frio".
+//Entre 16°C e 30°C: "Agradável".
+//Entre 31°C e 40°C: "Quente".
+//Acima de 40°C: "Muito quente, cuidado!".
+//Inclua uma verificação para valores inválidos (como temperaturas abaixo de -100°C ou acima de 100°C) e exiba uma mensagem de erro nesse caso.
+
+
+
+
+
+
+using System.ComponentModel.Design;
+using System.Security.Cryptography.X509Certificates;
+try
+{
+    Console.WriteLine("Insira a temperatura para a validação: "); // messagem para o usuário
+
+    String? temperaturaInserida = Console.ReadLine(); //INPUT USUÁRIO
+
+    double temperatura = 0;// VARIAVEL
+
+    static void verificarTempertura(double temperatura)
+    {
+        if (temperatura < -100 || temperatura > 100)
+        {
+            throw new Exception("Valor não suportado");
+        }
+    }
+
+
+
+
+    if (!double.TryParse(temperaturaInserida, out temperatura))// TRATAMENTO DE ERROS
+    {
+        throw new Exception("Entrada Inválida! Insira um valor númerico");
+
+
+
+    }
+    verificarTempertura(temperatura);
+
+    // CONDICIONAIS  PARA A VERIFICAÇÃO DA TEMPERATURA
+    if (temperatura < 0)
+    {
+        Console.WriteLine("Congelante");
+    }
+    else if (temperatura >= 0 && temperatura <= 15)
+    {
+        Console.WriteLine("Frio");
+    }
+    else if (temperatura >= 16 && temperatura <= 30)
+    {
+        Console.WriteLine("Agradável");
+    }
+    else if (temperatura >= 31 && temperatura <= 40)
+    {
+        Console.WriteLine("Quente");
+    }
+    else if (temperatura > 40)
+    {
+        Console.WriteLine("Muito quente,cuidado!");
+    }
+
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+
