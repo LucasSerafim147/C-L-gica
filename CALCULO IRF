@@ -1,0 +1,56 @@
+using System;
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Insira seu salário mensal em reais: "); // mensagem para inserir o salario do
+    string? salarioInserido = Console.ReadLine();
+    double salario;
+
+    if (!double.TryParse(salarioInserido, NumberStyles.Any, CultureInfo.InvariantCulture, out salario)) // conversão de tipo e
+                                                                                                        // também aceitação de dados como o number style e culture info
+    {
+        throw new Exception("Insira um valor numérico válido!");
+    }
+    // caso salário seja negativo
+    if (salario < 0)
+    {
+        Console.WriteLine("Insira um salário positivo!");
+        return;
+    }
+
+
+    // condicinais para o calculo do imposto
+    if (salario <= 2112.00)
+    {
+        Console.WriteLine($"Isento de Imposto! Seu salário líquido é: {salario.ToString("C")}");
+    }
+    else if (salario <= 2826.65)
+    {
+        double excesso = salario - 2112.00;
+        double imposto = excesso * 0.075;
+        Console.WriteLine($"Salário líquido: {(salario - imposto).ToString("C")}");
+    }
+    else if (salario <= 3751.05)
+    {
+        double excesso = salario - 2826.65;
+        double imposto = (excesso * 0.15) + 53.00;
+        Console.WriteLine($"Salário líquido: {(salario - imposto).ToString("C")}");
+    }
+    else if (salario <= 4664.68)
+    {
+        double excesso = salario - 3751.05;
+        double imposto = (excesso * 0.225) + 126.00;
+        Console.WriteLine($"Salário líquido: {(salario - imposto).ToString("C")}");
+    }
+    else
+    {
+        double excesso = salario - 4664.68;
+        double imposto = (excesso * 0.275) + 269.00;
+        Console.WriteLine($"Salário líquido: {(salario - imposto).ToString("C")}");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
