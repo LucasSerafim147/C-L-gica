@@ -1,0 +1,56 @@
+using System.Globalization;
+
+try
+{
+    Console.Write("Digite o valor base do seguro: "); // mensgaem para digitar o valor base do seguro
+    string? valorInserido = Console.ReadLine();
+    // conversão de dados e tratamento de erros
+    if (!double.TryParse(valorInserido, NumberStyles.Any, CultureInfo.InvariantCulture, out double valorBase) || valorBase <= 0)
+    {
+        throw new Exception("Valor base inválido! Digite um número positivo.");
+    }
+
+    Console.Write("Digite a idade do condutor: "); // mensagem para inserir a idade
+    string? idadeInserida = Console.ReadLine();
+    if (!int.TryParse(idadeInserida, out int idade) || idade < 18)
+    {
+        throw new Exception("Entrada inválida!insira uma idade mínima de 18 anos.");
+    }
+    // mensagem para inseir o tempo de carteira
+    Console.Write("Digite o tempo de carteira (anos): ");
+    string? tempoInserido = Console.ReadLine();
+    if (!int.TryParse(tempoInserido, out int tempoCarteira) || tempoCarteira < 0 || tempoCarteira > (idade - 18)) //verificação para não haver descrepancia sobre o tempo de carteira e aidade
+    {
+        throw new Exception("Tempo de carteira inválido! Máximo permitido: " + (idade - 18) + " anos.");
+    }
+
+    Console.Write("Digite o número de acidentes: "); // mensagem sobre o numero de acidentes
+    string? acidenteInserido = Console.ReadLine();
+    if (!int.TryParse(acidenteInserido, out int acidentes) || acidentes < 0)
+    {
+        throw new Exception("Número de acidentes inválido!");
+    }
+
+    // Cálculo dos fatores
+    double fator = 1.0;
+
+    if (idade < 25) fator += 0.20;
+    else if (idade <= 40) fator += 0.10;
+
+
+    if (tempoCarteira < 2) fator += 0.30;
+    else if (tempoCarteira <= 5) fator += 0.15;
+
+
+    if (acidentes == 0) fator -= 0.10;
+    else if (acidentes > 1) fator += 0.50;
+
+
+
+    double valorFinal = valorBase * fator;
+    Console.WriteLine($"Valor final do seguro: {valorFinal.ToString("C", new CultureInfo("pt-BR"))}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
