@@ -1,0 +1,84 @@
+////Crie um programa que determine se um usuário pode acessar uma área restrita. 
+
+//Requisitos:
+
+//Solicite a idade do usuário e sua ocupação (opções: "Estudante", "Trabalhador", "Aposentado").
+
+//Regras de acesso:
+//Estudantes só podem acessar se tiverem entre 18 e 25 anos.
+//Trabalhadores podem acessar se tiverem entre 25 e 60 anos.
+//Aposentados têm acesso irrestrito, independentemente da idade.
+
+//Caso o usuário não atenda aos critérios, exiba uma mensagem personalizada explicando o motivo do bloqueio.
+
+
+
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Insira sua ocupação: (Estudante, Trabalhador, Aposentado) ");// messagem para o usuário inserir a ocupação
+
+    String? ocupacaoInserida = Console.ReadLine()?.ToLower(); // input do usuario
+
+    validarOcupacao();//chamada do metodo  para verifcação da ocupaçao
+
+
+    Console.WriteLine("Insira sua idade: "); // mensagem para inserir a idade
+
+    String? idadeInserida = Console.ReadLine();
+
+    int idade = 0;
+    validarIdade();// chamada do metodo para verifcação da idade
+
+
+
+    // metodo para a validacao da ocupacao
+    void validarOcupacao()
+    {
+        if (String.IsNullOrEmpty(ocupacaoInserida) || (ocupacaoInserida != "estudante" && ocupacaoInserida != "trabalhador"
+        && ocupacaoInserida != "aposentado"))
+        {
+
+            throw new Exception("Opção inválida! Insira uma entrada permitida!");
+        }
+    }
+
+    // metodo para a validacao da idade
+    void validarIdade()
+    {
+        if (!int.TryParse(idadeInserida, out idade)||idade <0)
+       
+
+            throw new Exception("Valor inválido !Insira uma idade válida!");
+    }
+
+
+    // condicionais para o acesso a depender da ocupação e idade
+
+    if (ocupacaoInserida == "estudante" && idade >= 18 && idade <= 25) { 
+
+        Console.WriteLine("Acesso liberado para estudantes!");
+    }
+    else if (ocupacaoInserida == "trabalhador" && idade >= 25 && idade <= 60) {
+
+        Console.WriteLine("Acesso liberado para trabalhadores!!");
+    }
+    else if (ocupacaoInserida == "aposentado") { 
+
+        Console.WriteLine("Acesso liberado para aposentados!");
+    }
+
+    else { 
+
+        Console.WriteLine("Acesso negado!");
+    }
+
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+
+}
+
