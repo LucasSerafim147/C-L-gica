@@ -1,0 +1,35 @@
+
+
+
+try
+{
+
+    Console.WriteLine("Insira a velocidade do carro: "); //pergunta a velocidade
+
+    String? velocidadeInserida = Console.ReadLine(); // input do usuario
+    int velocidade = 0; // variavel
+
+    if (!int.TryParse(velocidadeInserida, out velocidade ) || (velocidade < 0 ))
+
+        throw new Exception("Entrada invalida! Insira apenas numeros inteiros!");// tratamentos de erro
+
+
+    if (velocidade > 80) // condicionais do codigo
+
+    {
+        int multa = (velocidade - 80) * 7;
+        Console.WriteLine($"Você foi multado, sua multa é de R${multa}");
+
+
+    }
+    else
+    {
+        Console.WriteLine("sem multa"); 
+    }
+        
+    
+}catch(Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
