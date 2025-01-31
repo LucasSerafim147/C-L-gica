@@ -1,0 +1,47 @@
+using Microsoft.VisualBasic;
+
+try
+{
+    Console.WriteLine("Insira sua idade: "); // messagem para o usuario sobre sua idade
+
+    String? idadeInsirida = Console.ReadLine(); //Input para o usuario receber a idade
+
+    if (!int.TryParse(idadeInsirida, out var idade) || (idade < 0) || (idade == -0)) // conversão da entrada e condiciconal da idade
+        throw new Exception("Entrada Inválida!Insira uma idade válida");
+
+    Console.WriteLine("Você possui alguma deficiência? 1-sim  2-não"); //messagem ao usuario sobre deficiencia
+
+    String? deficienciaInsirida = Console.ReadLine(); // input para a deficiencia
+    int deficiencia = 0;
+
+    if (!int.TryParse(deficienciaInsirida, out deficiencia) || (deficiencia != 1 && deficiencia != 2)) //conversão da entrada e condiciconal da deficencia
+        throw new Exception("Insira uma entrada de dados válida para deficiência (1 para sim, 2 para não)!");
+
+
+    // requisitos para a ordem de prioridade 
+    if (deficiencia == 1)
+    {
+        Console.WriteLine($"Paciente com {idade} anos e deficiência: Alta prioridade! " +
+            $"este cliente deve ser atendido imediatamente");
+    }
+    else if (idade > 70)
+    {
+        Console.WriteLine($"Paciente com {idade} anos: Alta prioridade" +
+            $"este cliente deve ser atendido imediatamente");
+    }
+    else if (idade >= 60 && idade <= 70)
+    {
+        Console.WriteLine($"Paciente com {idade} anos: Média prioridade!" +
+            $"devera ser atendido após clientes com alta prioridade");
+    }
+    else if (idade < 60)
+    {
+        Console.WriteLine($"Paciente com {idade} anos Baixa prioridade:Devera ser atendido após clientes " +
+            $"com média prioridade");
+    }
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
