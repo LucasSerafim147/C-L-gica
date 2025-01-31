@@ -1,0 +1,32 @@
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Insira o valor da compra: "); // mensagem para o usuario insirir o valor da compra
+    string? valorInserido = Console.ReadLine();
+
+    if (!decimal.TryParse(valorInserido, CultureInfo.InvariantCulture,out decimal valor)) // decimal para melhor vizualição e calculo de valores monetarios
+    {
+        throw new Exception("Entrada inválida! Insira um valor numérico.");
+    }
+    // caso o valor seja negativo o programa barra
+    if (valor < 0)
+    {
+        throw new Exception("O valor da compra não pode ser negativo.");
+    }
+    //condicional para o desconto 
+    if (valor > 100)
+    {
+        decimal desconto = valor * 0.10m; 
+        decimal valorFinal = valor - desconto;
+        Console.WriteLine($"Parabéns! Você ganhou um desconto de 10%. Valor final: R$ {valorFinal:F2}");
+    }
+    else
+    {
+        Console.WriteLine($"Valor da compra: R$ {valor:F2}");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
