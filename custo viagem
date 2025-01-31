@@ -1,0 +1,25 @@
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Qual a distancia da viagem em KM:"); //messagem para o usuario inserir a distancia
+    string? distanciaInserida = Console.ReadLine();
+    
+    //conversão de dados,tratamento de erros e  number style para aceitar diversos formatos de numeros 
+    if (!double.TryParse(distanciaInserida, NumberStyles.Any, CultureInfo.InvariantCulture, out double distancia))
+    {
+        throw new Exception("Valor inválido! Insira apenas números.");
+    }
+    // caso distancia seja menor que 0
+    if (distancia <= 0)
+    {
+        throw new Exception("Distância deve ser maior que zero!");
+    }
+    // condicional ternaria para o calculo da passagem
+    double preco = distancia <= 200 ? distancia * 0.50 : distancia * 0.45;
+    Console.WriteLine($"O preço da passagem é: {preco.ToString("N2")} Reais");
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
