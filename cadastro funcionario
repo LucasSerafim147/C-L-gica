@@ -1,0 +1,52 @@
+using System.Globalization;
+
+try
+{
+    Console.WriteLine("Insira seu salário: ");// messagem para a inserção de salário
+    string? salarioInserido = Console.ReadLine(); // input do usuário
+
+    double salario; // variavel do usuário
+    //Number any para aceitar varios tipos de numeros
+    if (!double.TryParse(salarioInserido, NumberStyles.Any, CultureInfo.InvariantCulture, out salario)) // conversão de dados e tratamento de erros
+
+    {
+        throw new Exception("Insira apenas valores válidos.");
+    }
+    // chamado do metodo cirado para verificar salarios negativos
+    ValidarSalario(salario);
+
+    Console.WriteLine("Insira sua categoria: (Estagiário, Júnior, Pleno, Sênior)"); // messagem para o usuario inserir a categoria
+    string? categoriaInserida = Console.ReadLine()?.ToLower(); // converte para minúscula
+
+    var categoriasValidas = new List<string> { "estagiário", "júnior", "pleno", "sênior","estagiario","junior","pleno","senior" }; // lista para agrupar todos os tipos de categorias incluindo sem acentuação
+
+    if (string.IsNullOrEmpty(categoriaInserida) || !categoriasValidas.Contains(categoriaInserida)) // validação caso a categoria seja vazia ou diferente contidada da lista
+    {
+        throw new Exception("Categoria inválida! As opções são: Estagiário, Júnior, Pleno, Sênior.");
+    }
+    // condicionais para o funcinamento do codigo e exibição das mensagens
+    if (salario < 2000)
+    {
+        Console.WriteLine("Salário baixo");
+    }
+    else if (salario >= 2000 && salario <= 5000)
+    {
+        Console.WriteLine("Salário médio");
+    }
+    else
+    {
+        Console.WriteLine("Salário alto");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+// método criado para a verificação do salario negativo
+void ValidarSalario(double salario)
+{
+    if (salario < 0)
+    {
+        throw new Exception("Insira apenas valores positivos!");
+    }
+}
