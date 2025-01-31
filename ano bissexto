@@ -1,0 +1,34 @@
+try
+{
+    Console.WriteLine("Insira um ano para a validação: "); // messagem para o usuário
+
+    String? anoInserido = Console.ReadLine();// input para o usuário
+
+    int ano = 0; // variavél 
+
+
+    if (!int.TryParse(anoInserido, out ano)) //conversão do anoInserido(String) para ano(int)
+
+
+        throw new Exception("Entrada inválida! Insira um valor numérico");// tratamento de erros
+
+
+    else if (ano < 0)
+
+        throw new Exception("Ano com valor invalido! Insira um maior que zero! ");
+    if (ano % 4 == 0 && ano % 100 != 0 || ano % 400 == 0)
+    {
+        Console.WriteLine("O ano inserido é Bissexto");
+    }
+
+
+    else
+    {
+        Console.WriteLine("O ano não é Bissexto");
+    }
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
