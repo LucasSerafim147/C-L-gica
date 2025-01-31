@@ -1,0 +1,33 @@
+
+
+Console.WriteLine("Insira um valor: ");
+String? numeroInserido = Console.ReadLine(); //input do usuario
+int numero = 0; // variavel
+
+try
+{
+
+
+    if (!int.TryParse(numeroInserido, out numero))
+        throw new Exception(" entrada inválida! Insira um valor numérico "); // tratamento de erros
+    // condicionais
+    if (numero % 2 == 0)
+    {
+        Console.WriteLine("O numero selecionado é par");
+    }
+    else
+    {
+        Console.WriteLine("O numéro selecionado é impar");
+    }
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+
+
+
+
+
