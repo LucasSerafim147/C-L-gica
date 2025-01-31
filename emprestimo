@@ -1,0 +1,87 @@
+using System.Globalization;
+
+try
+{
+    // Verificação do nome sujo
+    Console.WriteLine("Você tem nome sujo? (sim/não): ");
+    string? nomeSujo = Console.ReadLine()?.ToLower();
+
+    if (string.IsNullOrEmpty(nomeSujo) || (nomeSujo != "sim" && nomeSujo != "não" && nomeSujo != "nao"))
+    {
+        throw new Exception("Opção inválida! Digite apenas 'sim' ou 'não'.");
+    }
+
+    if (nomeSujo == "sim")
+    {
+        throw new Exception("Empréstimo negado: nome sujo.");
+    }
+
+    //  Validação do salário
+    Console.WriteLine("Insira seu salário mensal em reais: ");
+    string? salarioInserido = Console.ReadLine();
+
+    if (!double.TryParse(salarioInserido, NumberStyles.Any, CultureInfo.InvariantCulture, out double salario))
+    {
+        throw new Exception("Valor do salário inválido!");
+    }
+
+    if (salario <= 0)
+    {
+        throw new Exception("Salário deve ser maior que zero!");
+    }
+
+    // Validação do valor do empréstimo
+    Console.WriteLine("Insira o valor do empréstimo desejado: ");
+    string? emprestimoInserido = Console.ReadLine();
+
+    if (!double.TryParse(emprestimoInserido, NumberStyles.Any, CultureInfo.InvariantCulture, out double emprestimo))
+    {
+        throw new Exception("Valor do empréstimo inválido!");
+    }
+
+    if (emprestimo <= 0)
+    {
+        throw new Exception("Valor do empréstimo deve ser maior que zero!");
+    }
+
+    // Validação das parcelas
+    Console.WriteLine("Insira o número de parcelas desejadas: ");
+    string? parcelasInseridas = Console.ReadLine();
+
+    if (!int.TryParse(parcelasInseridas, out int parcelas) || parcelas <= 0)
+    {
+        throw new Exception("Número de parcelas inválido!");
+    }
+
+    // Cálculo da parcela 
+    double valorParcela = emprestimo / parcelas;
+
+   //condições
+    if (valorParcela > salario * 0.3)
+    {
+        Console.WriteLine($"Empréstimo negado: Parcela de {valorParcela:C} excede 30% do salário.");
+        return;
+    }
+
+    
+    if (salario < 2000 && parcelas <= 12)
+    {
+        Console.WriteLine("Empréstimo negado: Salários abaixo de R$ 2.000 exigem mínimo de 12 parcelas.");
+        return;
+    }
+
+   
+    if (salario > 10000 && valorParcela > salario * 0.5)
+    {
+        Console.WriteLine($"Empréstimo negado: Parcela de {valorParcela:C} excede 50% do salário.");
+        return;
+    }
+
+  
+    Console.WriteLine("Empréstimo APROVADO!");
+    Console.WriteLine($"Detalhes:\n- Valor da Parcela: {valorParcela:C}\n- Número de Parcelas: {parcelas}");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
