@@ -1,0 +1,26 @@
+try
+{
+    Console.Write("Insira sua idade: ");
+    string? idadeInserida = Console.ReadLine();
+
+    // conversão de dados e tramento de erros 
+    if (!int.TryParse(idadeInserida, out int idade))
+    {
+        throw new ArgumentException("Entrada inválida! Digite apenas números inteiros.");
+    }
+
+    // Validação de faixa etária direta
+    if (idade < 0 || idade > 130)
+    {
+        throw new ArgumentOutOfRangeException("Idade deve estar entre 0 e 130 anos.");
+    }
+
+    // Verificação de maioridade
+    Console.WriteLine(idade >= 18
+        ? "Você é maior de idade!"
+        : "Você é menor de idade.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Erro: {ex.Message}");
+}
