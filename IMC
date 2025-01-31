@@ -1,0 +1,85 @@
+using System.ComponentModel.Design;
+using System.Globalization;
+using System.Reflection.PortableExecutable;
+
+// CALCULADORA IMC
+
+
+//Crie um programa que solicita ao usuário seu peso (kg) e altura (m) e calcula o IMC:
+
+//O Índice de Massa Corporal (IMC) é calculado dividindo o peso em quilos pela altura ao quadrado em metros.
+
+//Classifique a condição do usuário:
+
+//Menor que 18.5 → Abaixo do peso.
+//Entre 18.5 e 24.9 → Peso normal.
+//Entre 25.0 e 29.9 → Sobrepeso.
+//Entre 30.0 e 34.9 → Obesidade grau I.
+//Entre 35.0 e 39.9 → Obesidade grau II.
+//Maior que 40.0 → Obesidade grau III.
+try
+{
+
+    Console.WriteLine("Insira seu peso: "); // messagem para o usuario inserir seu peso
+
+    String? pesoInserido = Console.ReadLine();
+    Double peso = 0;
+    if (!double.TryParse(pesoInserido, CultureInfo.InvariantCulture, out peso)) // conversão de dados e mensagem de erro caso usuario tente inserir valor diferente de int
+       
+        throw new Exception("Entrada de valor inválida! Insira apenas valores numéricos!"); 
+        validarPeso(); // chamada do método  para a validação do método
+     
+    Console.WriteLine("Insira sua altura: "); // messagem para o usuário inserir sua altura
+
+
+    String? alturaInserida = Console.ReadLine();
+
+    double altura = 0;
+
+    if (!double.TryParse(alturaInserida, CultureInfo.InvariantCulture, out altura))
+        throw new Exception("Entrada de valor valida! Insira apenas valores numéricos!");
+    validarAltura(); // chamada do metodo para a validação de altura
+
+    void validarPeso() // método para validar o peso, caso seja menor que 0 
+    {
+        if (peso < 0)
+            throw new Exception("Insira apenas valores maiores que zero");
+    }
+    void validarAltura() // metodo para validar a altura caso seja menor que 0 e maior que 3 metros de altura
+    {
+        if (altura <= 0 || altura > 3.00)
+            throw new Exception("Insira uma altura dentro dos limites entre 0 metros e 3.00 metros");
+    }
+
+
+    double imc = peso / (altura * altura); // calculo do IMC
+
+    // condicionais para o imc 
+
+
+    if (imc < 18.5)
+        Console.WriteLine("Abaixo do peso!");
+    else if (imc >= 18.5 && imc <= 24.9)
+        Console.WriteLine("Peso normal!");
+    else if (imc >= 25 && imc <= 29.9)
+        Console.WriteLine("Sobrepeso");
+    else if (imc >= 30 && imc <= 34.9)
+        Console.WriteLine("Obesidade Grau I");
+    else if (imc >= 35 && imc <= 39.9)
+        Console.WriteLine("Obesidade Grau II");
+    else
+        Console.WriteLine("Obesidade Grau III");
+    Console.WriteLine(Math.Round(imc, 2));
+
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
+
+
+
+
+
+
+
